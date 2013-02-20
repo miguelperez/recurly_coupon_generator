@@ -58,12 +58,28 @@ module Recurly
       type: :numeric,
       aliases: "-N",
       default: "10"
-    def coupons
+    def generate(api_key)
+      # Getting the values from the options attributes
       number_of_codes = options.number_of_codes.to_i
       length = options.code_lengh.to_i
-      _coupons = invoke :generate, [number_of_codes, length]
-      _coupons.each do |coupon|
+
+      # Setting default coupon attributes
+      new_coupon_attributes = {
+        name: "SXSW 2013",
+        discount_in_cents: 2_00
+        redeem_by_date: Date.new(2013, 6, 30),
+        a: "b"
+      }
+
+      # Generating random coupon codes
+      _codes = invoke :generate, [number_of_codes, length]
+      _codes.each do |coupon|
         # upload coupon to recurly
+        new_coupon_attributes[:coupon_code] = code
+        p "generating coupon #{code}"
+        recurly_coupon = ::Recurly::Coupon.new(new_coupon_attributes)
+        p "uploading coupon #{coupon} to recurly"
+        p recurly_coupon
       end
     end
 
@@ -71,7 +87,7 @@ module Recurly
     def list(api_key)
       ::Recurly.api_key        = api_key
       ::Recurly::Coupon.find_each do |coupon|
-        puts "name: #{coupon.name} code: #{coupon.coupon_code} discount: #{coupon.discount_in_cents.to_s} single_use: #{coupon.single_use} Redeem-By: #{coupon.redeem_by_date}"
+        puts "name: #{coupon.name} code: #{coupon.coupon_code} discount: #{coupon.discount_in_cents.to_s} single_use: #{coupon.single_use} Redeem-By: #{coupon.redeem_by_date.strftime('%a %d %b %Y')}"
       end
     end
   end
