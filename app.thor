@@ -72,7 +72,7 @@ end
 
 module Recurly
   class Coupons < Thor
-    desc "generate", "generate coupons in recurly"
+    desc "generate API_KEY", "generate coupons in recurly"
     method_option :code_lengh,
       desc: "The length of the generated codes",
       type: :numeric,
