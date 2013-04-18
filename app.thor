@@ -100,9 +100,9 @@ module Recurly
 
       # Setting default coupon attributes
       new_coupon_attributes = {
-        name: "SXSW 2013",
+        name: "FIL 2013",
         discount_in_cents: 50_00,
-        redeem_by_date: Date.new(2013, 7, 1),
+        # redeem_by_date: Date.new(2013, 7, 1),
         max_redemptions: 1,
         single_use: true
       }

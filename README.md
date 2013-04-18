@@ -16,6 +16,9 @@ codes
 recurly
 -------
 
+Please note that for security reasons, this methods receive a debug option which is set to true.
+If you want this methods to work properly pass the debug option as false.
+
     thor recurly:coupons:generate API_KEY  # generate coupons in recurly
     thor recurly:coupons:list API_KEY      # List the coupons you have in recurly
 
